@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+  <title>Patient Registeration</title>
+  <script
+    type="text/javascript"
+    src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"
+  ></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+  <script src="index.js"></script>
+  <link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+    crossorigin="anonymous"
+  />
+  <link rel="stylesheet" href="index.css" />
+</head>
+  <body ng-app="patientApp" ng-controller="myCtrl">
+   <div class="app_container">
+    <h2>PATIENT REGISTERATION</h2>
+    <form name="patientForm" ng-submit="submitData(questions)">
+      <div>
+        <div class="form-check" ng-repeat="question in questions.item">
+          <h5>{{question.linkId}}. {{question.text}}</h5>
+          <div ng-if="question.type=='boolean'">
+            <input
+              class="form-check-input"
+              type="radio"
+              name="name_{{question.linkId}}'"
+              id="yesRadio_{{question.linkId}}'"
+              value="yes"
+              ng-model="question.answer"
+              required
+            />
+            <label class="form-check-label" for="yesRadio_{{question.linkId}}'"
+              >Yes</label
+            >
+            <div>
+              <input
+                class="form-check-input"
+                type="radio"
+                name="name_{{question.linkId}}'"
+                id="noRadio_{{question.linkId}}'"
+                value="no"
+                ng-model="question.answer"
+                required
+              />
+              <label class="form-check-label" for="noRadio_{{question.linkId}}'"
+                >No</label
+              >
+            </div>
+          </div>
+          <div ng-if="question.type=='choice'">
+            <div ng-repeat="option in question.option">
+              <input
+                class="form-check-input"
+                type="radio"
+                name="{{question.linkId}}"
+                id="{{question.linkId}}_{{option.valueCoding.code}}"
+                value="{{option.valueCoding.code}}"
+                ng-model="question.answer"
+                required
+              />
+              <label
+                class="form-check-label"
+                for="{{question.linkId}}_{{option.valueCoding.code}}"
+              >
+                {{option.valueCoding.display}}
+              </label>
+            </div>
+          </div>
+          <div ng-if="question.type=='date'" class="input_container">
+            <input
+              class="form-control"
+              type="date"
+              id="birthday"
+              name="birthday"
+              ng-model="question.answer"
+              value=""
+              max="{{maxDate}}"
+            />
+          </div>
+          <div ng-if="question.type=='string'" class="input_container">
+            <input
+              class="form-control"
+              type="text"
+              id="countryName"
+              ng-model="question.answer"
+              value="{{answer.question_[question.linkId]}}"
+              maxlength="20"
+              required
+            />
+          </div>
+        </div>
+      </div>
+      <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+    <div ng-show="showAnswer">
+      <div>show Result</div>
+      <div ng-repeat="question in questions.item">
+        <h5>{{question.linkId}}. {{question.text}}</h5>
+        <div ng-if="question.type!='date'">Answer : {{question.answer}}</div>
+        <div ng-if="question.type=='date'">
+          Answer : {{question.answer|date}}
+        </div>
+      </div>
+    </div>
+   </div>
+  </body>
+</html>

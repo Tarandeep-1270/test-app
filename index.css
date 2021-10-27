@@ -1,0 +1,44 @@
+*{
+margin:0;
+padding:0;
+box-sizing: border-box;
+}
+
+:root{
+font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+font-size: 16px;
+}
+
+h2{
+text-align: center;
+font-weight: 700;
+color: #FCF803;
+}
+
+h5{
+color: #4E00B0;
+}
+
+.app_container{
+display: flex;
+flex-direction: column;
+margin: 40px auto;
+padding: 20px;
+max-width: 75%;
+justify-content: center;
+align-items: center;
+} 
+
+.input_container{
+width: 70%;
+}
+
+button{
+width: 70%;
+margin: 0 auto;
+}
+
+
+.valid {
+  border: red;
+}
